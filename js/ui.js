@@ -13,18 +13,25 @@ const ui = {
     document.getElementById("pensamento-form").reset()
   },
 
-  async renderizarPensamentos() {
+  async renderizarPensamentos(pensamentoFiltrados = null) {
     const listaPensamentos = document.getElementById("lista-pensamentos")
     const mensagemVazia = document.getElementById("mensagem-vazia")
     listaPensamentos.innerHTML = ""
   
     try {
-      const pensamentos = await api.buscarPensamentos()
-      if (pensamentos.length === 0) {
+      let pensamentoParaRenderizar
+
+      if(pensamentoFiltrados) {
+        pensamentoParaRenderizar = pensamentoFiltrados
+      } else {
+        pensamentoParaRenderizar = await api.buscarPensamentos()
+      }
+
+      if (pensamentoParaRenderizar.length === 0) {
         mensagemVazia.style.display = "block"
       } else {
         mensagemVazia.style.display = "none"
-        pensamentos.forEach(ui.adicionarPensamentoNaLista)
+        pensamentoParaRenderizar.forEach(ui.adicionarPensamentoNaLista)
       } 
     }
     catch {

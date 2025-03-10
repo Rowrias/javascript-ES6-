@@ -7,7 +7,7 @@ const ui = {
     document.getElementById("pensamento-id").value = pensamento.id
     document.getElementById("pensamento-conteudo").value = pensamento.conteudo
     document.getElementById("pensamento-autoria").value = pensamento.autoria
-    document.getElementById("pensamento-data").value = pensamento.data.toISOString().split("T")[0]
+    document.getElementById("pensamento-data").value = pensamento.data.toISOString().split("T")[0 ]
     document.getElementById("form-container").scrollIntoView()
   },
 
@@ -70,7 +70,8 @@ const ui = {
 
     const pensamentoData = document.createElement("div")
     const dataFormatada = pensamento.data.toLocaleDateString('pt-BR', options)
-    pensamentoData.textContent = dataFormatada
+    const dataComRegex = dataFormatada.replace(/^(\w)/, (match) => match.toUpperCase())
+    pensamentoData.textContent = dataComRegex
     pensamentoData.classList.add("pensamento-data")
 
     const botaoEditar = document.createElement("button")
